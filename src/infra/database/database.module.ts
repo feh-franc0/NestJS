@@ -15,7 +15,7 @@ import { PrismaStudentsRepository } from './prisma/repositories/prisma-students-
     PrismaService,
     {
       provide: QuestionsRepository,
-      useClass: PrismaStudentsRepository,
+      useClass: PrismaQuestionsRepository,
     },
     {
       provide: StudentsRepository,
