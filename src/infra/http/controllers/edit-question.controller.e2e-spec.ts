@@ -47,24 +47,24 @@ describe('Edit question (E2E)', () => {
 
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
-    const attachement1 = await attachmentFactory.makePrismaAttachment()
-    const attachement2 = await attachmentFactory.makePrismaAttachment()
+    const attachment1 = await attachmentFactory.makePrismaAttachment()
+    const attachment2 = await attachmentFactory.makePrismaAttachment()
 
     const question = await questionFactory.makePrismaQuestion({
       authorId: user.id,
     })
 
     await questionAttachmentFactory.makePrismaQuestionAttachment({
-      attachmentId: attachement1.id,
+      attachmentId: attachment1.id,
       questionId: question.id,
     })
 
     await questionAttachmentFactory.makePrismaQuestionAttachment({
-      attachmentId: attachement2.id,
+      attachmentId: attachment2.id,
       questionId: question.id,
     })
 
-    const attachement3 = await attachmentFactory.makePrismaAttachment()
+    const attachment3 = await attachmentFactory.makePrismaAttachment()
 
     const questionId = question.id.toString()
 
@@ -74,7 +74,7 @@ describe('Edit question (E2E)', () => {
       .send({
         title: 'New title',
         content: 'New content',
-        attachements: [attachement1.id.toString(), attachement3.id.toString()],
+        attachments: [attachment1.id.toString(), attachment3.id.toString()],
       })
 
     expect(response.statusCode).toBe(204)
@@ -98,10 +98,10 @@ describe('Edit question (E2E)', () => {
     expect(attachemntsOnDatabase).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: attachement1.id.toString(),
+          id: attachment1.id.toString(),
         }),
         expect.objectContaining({
-          id: attachement3.id.toString(),
+          id: attachment3.id.toString(),
         }),
       ]),
     )
