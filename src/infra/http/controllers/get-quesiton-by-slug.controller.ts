@@ -4,11 +4,11 @@ import { QuesitonDetailsPresenter } from '../presenters/question-details-present
 
 @Controller('/questions/:slug')
 export class GetQuestionBySlugController {
-  constructor(private fetchRecentQuestion: GetQuestionBySlugUseCase) {}
+  constructor(private getQuestionBySlug: GetQuestionBySlugUseCase) {}
 
   @Get()
   async handle(@Param('slug') slug: string) {
-    const result = await this.fetchRecentQuestion.execute({
+    const result = await this.getQuestionBySlug.execute({
       slug,
     })
 
