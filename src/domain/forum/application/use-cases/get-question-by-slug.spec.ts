@@ -62,7 +62,7 @@ describe('Get Question By Slug', () => {
       question: expect.objectContaining({
         title: newQuestion.title,
         author: 'John Doe',
-        attachment: [
+        attachments: [
           expect.objectContaining({
             title: 'Some attachment',
           }),
