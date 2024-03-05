@@ -104,3 +104,207 @@ model Notification {
 
   @@map("notifications")
 }
+
+model Empresa {
+  cnpj              String
+  email             String   @unique
+  telefone          String
+  nome              String
+  endereco          String
+  aceita_convenios  String[]
+  planos_assinatura String[]
+}
+
+model Paciente {
+  id                    Int                  @id @default(autoincrement())
+  ativo_ou_nao          Boolean
+  tipos_comorbidade     String[]
+  nome_parente          String
+  nome_idoso            String
+  endereco              String
+  telefones_importantes String[]
+  email                 String               @unique
+  remedio_dose_horario  Medicamento[]
+  alergias_restricoes   AlergiasRestricoes[]
+  documentos_cpf        String
+  arquivos_pdfs_fotos   String[]
+  codigo_paciente       String
+  sexo                  String
+  ultima_consulta       String
+  convenio              String
+  Agendamento           Agendamento[]
+}
+
+model AlergiasRestricoes {
+  id         Int                  @id @default(autoincrement())
+  nome       String
+  tipo       TipoAlergiaRestricao
+  paciente   Paciente             @relation(fields: [pacienteId], references: [id])
+  pacienteId Int
+}
+
+enum TipoAlergiaRestricao {
+  ALERGIA
+  RESTRICAO
+}
+
+model Exame {
+  id                 Int    @id @default(autoincrement())
+  id_paciente        String @unique
+  nome_exame         String
+  nome_profissional  String
+  data               String
+  descricao          String
+  assinatura_medico  String
+  documento_pdf_foto String
+}
+
+model Medicamento {
+  id         Int             @id @default(autoincrement())
+  nome       String
+  tipo       TipoMedicamento
+  dose       String
+  horario    String
+  receita    Receita         @relation(fields: [receitaId], references: [id])
+  receitaId  Int
+  paciente   Paciente?       @relation(fields: [pacienteId], references: [id])
+  pacienteId Int?
+}
+
+model Receita {
+  id                 Int           @id @default(autoincrement())
+  id_paciente        String
+  medicamentos       Medicamento[]
+  assinatura_medico  String
+  documento_pdf_foto String
+}
+
+enum TipoMedicamento {
+  GOTA
+  COMPRIMIDO
+}
+
+model Funcionario {
+  id                 Int           @id @default(autoincrement())
+  ativo_ou_nao       Boolean
+  nome               String
+  endereco           String
+  telefone           String
+  email              String        @unique
+  documentos_cpf     String
+  codigo_funcionario String
+  cargo              String
+  data_nascimento    String
+  sexo               String
+  Agendamento        Agendamento[]
+}
+
+model Agendamento {
+  id                    Int         @id @default(autoincrement())
+  company_id            String
+  paciente              Paciente    @relation(fields: [pacienteId], references: [id])
+  funcionario           Funcionario @relation(fields: [funcionarioId], references: [id])
+  endereco_residencia   String
+  data_inicial_consulta String
+  data_final_consulta   String
+  valor_consulta        String
+  pacienteId            Int
+  funcionarioId         Int
+}
+
+model Relatorio {
+  id                                                                               Int        @id @default(autoincrement())
+  quantidade_pacientes_agendados_dia                                               Int
+  pacientes_proximas_consultas_futuras                                             Int
+  pacientes_confirmaram_atendimento_dia_antes                                      Int
+  quantidade_atendimentos_feitos_dia                                               Int
+  quantidade_atendimentos_cancelados_dia                                           Int
+  quantidade_pacientes_sendo_atendidos_momento                                     Int
+  quantidade_mensagens_remarketing_enviadas                                        Int
+  grafico_linha_numero_consultas_mes                                               Consulta[] @relation(name: "RelatorioConsultaLinha")
+  grafico_pizza_proporcao_consultas_canceladas_atendidas_remarcadas_a_serem_feitas Consulta[] @relation(name: "RelatorioConsultaPizza")
+}
+
+model Consulta {
+  id                       Int       @id @default(autoincrement())
+  mes                      String
+  numero_consultas         Int
+  consultas_canceladas     Int
+  consultas_atendidas      Int
+  consultas_remarcadas     Int
+  consultas_a_serem_feitas Int
+  relatorioLinha           Relatorio @relation(name: "RelatorioConsultaLinha", fields: [relatorioLinhaId], references: [id])
+  relatorioPizza           Relatorio @relation(name: "RelatorioConsultaPizza", fields: [relatorioPizzaId], references: [id])
+  relatorioLinhaId         Int
+  relatorioPizzaId         Int
+}
+
+model Financeiro {
+  id                      Int      @id @default(autoincrement())
+  movimentacao_financeira String
+  tipo_movimentacao       String
+  documento               String
+  cobranca                String
+  contas_pagar            String
+  contas_receber          String
+  total                   String
+  nome_pagador            String
+  nome_favorecido         String
+  valor                   String
+  data_emissao_vencimento String
+  documentos_comprovantes String[]
+  imprimir_extrato        String
+}
+
+model AGENDAMENTOZAP {
+  id Int @id @default(autoincrement())
+
+  titulo            String
+  descricao_inicial String
+}
+
+model CAMPANHAZAP {
+  id Int @id @default(autoincrement())
+
+  titulo                  String
+  subtitulo               String
+  texto_campanha          String
+  pessoas_que_vao_receber String[]
+}
+
+model NewLatterDaMagazine {
+  id                         Int                          @id @default(autoincrement())
+  title                      String
+  description                String
+  content                    String
+  chatbotDeAuxilioAoPaciente ChatbotDeAuxilioAoPaciente[] @relation("NewLatterChatbot")
+}
+
+model ChatbotDeAuxilioAoPaciente {
+  id                    Int                   @id @default(autoincrement())
+  newLatterDaMagazine   NewLatterDaMagazine[] @relation("NewLatterChatbot")
+  feedbackSatisfacao    SatisfacaoDoCliente[] @relation("FeedbackChatbot")
+  newLatterDaMagazineId Int?
+  feedbackSatisfacaoId  Int?
+}
+
+model SatisfacaoDoCliente {
+  id                           Int                         @id @default(autoincrement())
+  nome_paciente                String
+  nome_funcionario             String
+  avaliacao_funcionario        String
+  avaliacao_empresa            String
+  nivel_satisfacao             Int
+  mensagem_satisfacao          String
+  chatbotDeAuxilioAoPaciente   ChatbotDeAuxilioAoPaciente? @relation(name: "FeedbackChatbot", fields: [chatbotDeAuxilioAoPacienteId], references: [id])
+  chatbotDeAuxilioAoPacienteId Int?
+}
+
+model Aviso {
+  id                     Int    @id @default(autoincrement())
+  titulo                 String
+  tipo_aviso             String
+  data_inicio            String
+  data_finalizacao_aviso String
+  mensagem_aviso         String
+}
