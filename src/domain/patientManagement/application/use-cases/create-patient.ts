@@ -6,6 +6,7 @@ import { PasswordMismatchError } from './errors/password-mismatch-error'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { PatientAttachment } from '../../enterprise/entities/patient-attachment'
 import { PatientAttachmentList } from '../../enterprise/entities/patient-attachment-list'
+import { Injectable } from '@nestjs/common'
 
 interface CreatePatientUseCaseRequest {
   companyId: string
@@ -24,6 +25,7 @@ type CreatePatientUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class CreatePatientUseCase {
   constructor(private patientRepository: PatientRepository) {}
 

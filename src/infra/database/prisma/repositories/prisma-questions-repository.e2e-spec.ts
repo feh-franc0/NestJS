@@ -82,13 +82,13 @@ describe('Prisma Questions Repository (E2E)', () => {
     const slug = question.slug.value
 
     await cacheRepository.set(
-      `question:${slug}:details`, 
-      JSON.stringify({ empty: true}),
+      `question:${slug}:details`,
+      JSON.stringify({ empty: true }),
     )
 
     const questionDetails = await questionsRepository.findDetailsBySlug(slug)
 
-    expect(questionDetails).toEqual({ empty: true})
+    expect(questionDetails).toEqual({ empty: true })
   })
 
   it('should reset question details cache when saving the question', async () => {
@@ -108,8 +108,8 @@ describe('Prisma Questions Repository (E2E)', () => {
     const slug = question.slug.value
 
     await cacheRepository.set(
-      `question:${slug}:details`, 
-      JSON.stringify({ empty: true}),
+      `question:${slug}:details`,
+      JSON.stringify({ empty: true }),
     )
 
     await questionsRepository.save(question)

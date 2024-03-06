@@ -6,9 +6,9 @@ POST {{baseUrl}}/accounts
 Content-Type: application/json; charset=utf-8
 
 {
-  "name": "doriva",
-  "email": "dorival1@gmail.com.br",
-  "password": "123456"
+  "name": "franco",
+  "email": "franco@gmail.com",
+  "password": "12345"
 }
 
 ###
@@ -38,5 +38,49 @@ Authorization: Bearer {{authToken}}
 
 # @name fetch_recent_questions
 GET {{baseUrl}}/questions?page=1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name create_patients
+POST {{baseUrl}}/patients
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "email": "patient1@gmail.com", 
+  "name": "patient name", 
+  "password": "123456", 
+  "confirmPassword": "123456", 
+  "attachments": []
+}
+
+###
+
+# @name fetch_patients
+GET {{baseUrl}}/patients?page=1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name edit_patients
+PUT {{baseUrl}}/patients/071bd12f-8ac0-41c9-9dba-0b43f326eabe
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "email": "patient10@gmail.com", 
+  "name": "patient name12", 
+  "password": "1234567", 
+  "confirmPassword": "1234567", 
+  "attachments": []
+}
+
+###
+
+# @name delete_patients
+DELETE {{baseUrl}}/patients/071bd12f-8ac0-41c9-9dba-0b43f326eabe
 Content-Type: application/json
 Authorization: Bearer {{authToken}}

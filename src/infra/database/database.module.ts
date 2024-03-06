@@ -19,11 +19,31 @@ import { PrismaAttachmentsRepository } from './prisma/repositories/prisma-attach
 import { NotificationsRepository } from '@/domain/notification/application/repositories/notifications-repository'
 import { PrismaNotificationsRepository } from './prisma/repositories/prisma-notifications-repository'
 import { CacheModule } from '../cache/cache.module'
+import { PrismaEmployeeRepository } from './prisma/repositories/prisma-employee-repository'
+import { PrismaPatientAttachmentsRepository } from './prisma/repositories/prisma-patient-attachments-repository'
+import { PrismaPatientRepository } from './prisma/repositories/prisma-patient-repository'
+import { PrismaAlternateSchedulingRepository } from './prisma/repositories/prisma-scheduling-alternate-days-repository'
+import { PrismaDaysOfWeekSchedulingRepository } from './prisma/repositories/prisma-scheduling-days-of-week-repository'
+import { PrismaUniqueDaySchedulingRepository } from './prisma/repositories/prisma-scheduling-unique-day-repository'
+import { PatientRepository } from '@/domain/patientManagement/application/repositories/patient-repository'
+import { PatientAttachmentsRepository } from '@/domain/patientManagement/application/repositories/patient-attachments-repository'
 
 @Module({
   imports: [CacheModule],
   providers: [
     PrismaService,
+    PrismaEmployeeRepository,
+    PrismaAlternateSchedulingRepository,
+    PrismaDaysOfWeekSchedulingRepository,
+    PrismaUniqueDaySchedulingRepository,
+    {
+      provide: PatientAttachmentsRepository,
+      useClass: PrismaPatientAttachmentsRepository,
+    },
+    {
+      provide: PatientRepository,
+      useClass: PrismaPatientRepository,
+    },
     {
       provide: QuestionsRepository,
       useClass: PrismaQuestionsRepository,
@@ -72,6 +92,12 @@ import { CacheModule } from '../cache/cache.module'
     AnswerAttachmentsRepository,
     AttachmentsRepository,
     NotificationsRepository,
+    PrismaEmployeeRepository,
+    PatientAttachmentsRepository,
+    PatientRepository,
+    PrismaAlternateSchedulingRepository,
+    PrismaDaysOfWeekSchedulingRepository,
+    PrismaUniqueDaySchedulingRepository,
   ],
 })
 export class DatabaseModule {}

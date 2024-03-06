@@ -2,6 +2,7 @@ import { Either, left, right } from '@/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { PatientRepository } from '../repositories/patient-repository'
 import { NotAllowedError } from './errors/not-allowed-error'
+import { Injectable } from '@nestjs/common'
 
 interface DeletePatientUseCaseRequest {
   patientId: string
@@ -14,6 +15,7 @@ type DeletePatientUseCaseResponse = Either<
   {}
 >
 
+@Injectable()
 export class DeletePatientUseCase {
   constructor(private patientRepository: PatientRepository) {}
 

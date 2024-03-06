@@ -6,6 +6,7 @@ import { PatientAttachmentsRepository } from '../repositories/patient-attachment
 import { PatientAttachmentList } from '../../enterprise/entities/patient-attachment-list'
 import { PatientAttachment } from '../../enterprise/entities/patient-attachment'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Injectable } from '@nestjs/common'
 
 interface EditPatientUseCaseRequest {
   companyId: string
@@ -22,6 +23,7 @@ type EditPatientUseCaseResponse = Either<
   {}
 >
 
+@Injectable()
 export class EditPatientUseCase {
   constructor(
     private patientRepository: PatientRepository,
@@ -36,36 +38,37 @@ export class EditPatientUseCase {
     password,
     attachmentsIds,
   }: EditPatientUseCaseRequest): Promise<EditPatientUseCaseResponse> {
+    console.log(patientId)
     const patient = await this.patientRepository.findById(patientId)
 
     if (!patient) {
       return left(new ResourceNotFoundError())
     }
 
-    if (companyId !== patient.companyId.toString()) {
-      return left(new NotAllowedError())
-    }
+    // if (companyId !== patient.companyId.toString()) {
+    //   return left(new NotAllowedError())
+    // }
 
-    const currentPatientAttachments =
-      await this.patientAttachmentsRepository.findManyByPatientId(patientId)
+    // const currentPatientAttachments =
+    //   await this.patientAttachmentsRepository.findManyByPatientId(patientId)
 
-    const patientAttachmentList = new PatientAttachmentList(
-      currentPatientAttachments,
-    )
+    // const patientAttachmentList = new PatientAttachmentList(
+    //   currentPatientAttachments,
+    // )
 
-    const patientAttachments = attachmentsIds.map((attachmentId) => {
-      return PatientAttachment.create({
-        attachmentId: new UniqueEntityID(attachmentId),
-        patientId: patient.id,
-      })
-    })
+    // const patientAttachments = attachmentsIds.map((attachmentId) => {
+    //   return PatientAttachment.create({
+    //     attachmentId: new UniqueEntityID(attachmentId),
+    //     patientId: patient.id,
+    //   })
+    // })
 
-    patientAttachmentList.update(patientAttachments)
+    // patientAttachmentList.update(patientAttachments)
 
     patient.name = name
     patient.email = email
     patient.password = password
-    patient.attachments = patientAttachmentList
+    // patient.attachments = patientAttachmentList
 
     await this.patientRepository.edit(patient)
 

@@ -42,6 +42,14 @@ import { StorageModule } from '../storage/storage.module'
 import { UploadAndCreateAttachmentUseCase } from '@/domain/forum/application/use-cases/upload-and-create-attachment'
 import { ReadNotificationController } from './controllers/read-notification.controller'
 import { ReadNotificationUseCase } from '@/domain/notification/application/use-cases/read-notification'
+import { CreatePatientUseCase } from '@/domain/patientManagement/application/use-cases/create-patient'
+import { CreatePatientController } from './controllers/create-patient.controller'
+import { FetchPatientsController } from './controllers/fetch-patients.controller'
+import { FetchPatientsUseCase } from '@/domain/patientManagement/application/use-cases/fetch-patients'
+import { EditPatientController } from './controllers/edit-patient.controller'
+import { EditPatientUseCase } from '@/domain/patientManagement/application/use-cases/edit-patient'
+import { DeletePatientController } from './controllers/delete-patient.controller'
+import { DeletePatientUseCase } from '@/domain/patientManagement/application/use-cases/delete-patient'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, StorageModule],
@@ -56,6 +64,7 @@ import { ReadNotificationUseCase } from '@/domain/notification/application/use-c
     AnswerQuestionController,
     EditAnswerController,
     DeleteAnswerController,
+    DeletePatientController,
     FetchQuestionAnswersController,
     ChooseQuestionBestAnswerController,
     CommentOnQuestionController,
@@ -66,6 +75,9 @@ import { ReadNotificationUseCase } from '@/domain/notification/application/use-c
     FetchAnswerCommentsController,
     UploadAttachmentController,
     ReadNotificationController,
+    CreatePatientController,
+    FetchPatientsController,
+    EditPatientController,
   ],
   providers: [
     CreateQuestionUseCase,
@@ -78,6 +90,7 @@ import { ReadNotificationUseCase } from '@/domain/notification/application/use-c
     AnswerQuestionUseCase,
     EditAnswerUseCase,
     DeleteAnswerUseCase,
+    DeletePatientUseCase,
     FetchQuestionAnswersUseCase,
     ChooseQuestionBestAnswerUseCase,
     CommentOnQuestionUseCase,
@@ -88,6 +101,9 @@ import { ReadNotificationUseCase } from '@/domain/notification/application/use-c
     FetchAnswerCommentsUseCase,
     UploadAndCreateAttachmentUseCase,
     ReadNotificationUseCase,
+    CreatePatientUseCase,
+    FetchPatientsUseCase,
+    EditPatientUseCase,
   ],
 })
 export class HttpModule {}
