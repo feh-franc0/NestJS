@@ -27,15 +27,19 @@ import { PrismaDaysOfWeekSchedulingRepository } from './prisma/repositories/pris
 import { PrismaUniqueDaySchedulingRepository } from './prisma/repositories/prisma-scheduling-unique-day-repository'
 import { PatientRepository } from '@/domain/patientManagement/application/repositories/patient-repository'
 import { PatientAttachmentsRepository } from '@/domain/patientManagement/application/repositories/patient-attachments-repository'
+import { EmployeeRepository } from '@/domain/employeeManagement/application/repositories/employee-repository'
 
 @Module({
   imports: [CacheModule],
   providers: [
     PrismaService,
-    PrismaEmployeeRepository,
     PrismaAlternateSchedulingRepository,
     PrismaDaysOfWeekSchedulingRepository,
     PrismaUniqueDaySchedulingRepository,
+    {
+      provide: EmployeeRepository,
+      useClass: PrismaEmployeeRepository,
+    },
     {
       provide: PatientAttachmentsRepository,
       useClass: PrismaPatientAttachmentsRepository,
@@ -92,7 +96,7 @@ import { PatientAttachmentsRepository } from '@/domain/patientManagement/applica
     AnswerAttachmentsRepository,
     AttachmentsRepository,
     NotificationsRepository,
-    PrismaEmployeeRepository,
+    EmployeeRepository,
     PatientAttachmentsRepository,
     PatientRepository,
     PrismaAlternateSchedulingRepository,

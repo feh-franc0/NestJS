@@ -1,24 +1,26 @@
 import { Either, right } from '@/core/either'
 import { EmployeeRepository } from '../repositories/employee-repository'
 import { Employee } from '../../enterprise/entities/employee'
+import { Injectable } from '@nestjs/common'
 
-interface CreateEmployeeUseCaseRequest {
+interface FetchEmployeeUseCaseRequest {
   page: number
 }
 
-type CreateEmployeeUseCaseResponse = Either<
+type FetchEmployeeUseCaseResponse = Either<
   null,
   {
     employees: Employee[]
   }
 >
 
-export class CreateEmployeeUseCase {
+@Injectable()
+export class FetchEmployeeUseCase {
   constructor(private employeeRepository: EmployeeRepository) {}
 
   async execute({
     page,
-  }: CreateEmployeeUseCaseRequest): Promise<CreateEmployeeUseCaseResponse> {
+  }: FetchEmployeeUseCaseRequest): Promise<FetchEmployeeUseCaseResponse> {
     const employees = await this.employeeRepository.fetchEmployees({ page })
 
     return right({

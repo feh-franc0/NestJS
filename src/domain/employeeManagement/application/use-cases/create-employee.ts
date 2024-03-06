@@ -4,6 +4,7 @@ import { AlreadyExistsError } from './errors/already-exists-error'
 import { Employee } from '../../enterprise/entities/employee'
 import { PasswordMismatchError } from './errors/password-mismatch-error'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Injectable } from '@nestjs/common'
 
 interface CreateEmployeeUseCaseRequest {
   companyId: string
@@ -23,6 +24,7 @@ type CreateEmployeeUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class CreateEmployeeUseCase {
   constructor(private employeeRepository: EmployeeRepository) {}
 

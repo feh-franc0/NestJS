@@ -84,3 +84,48 @@ Authorization: Bearer {{authToken}}
 DELETE {{baseUrl}}/patients/071bd12f-8ac0-41c9-9dba-0b43f326eabe
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+###
+
+# @name create_employees
+POST {{baseUrl}}/employees
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "email": "patient12@gmail.com", 
+  "name": "employename12", 
+  "password": "123456", 
+  "confirmPassword": "123456", 
+  "department": "cuidador",
+  "role": "role"
+}
+
+###
+
+# @name fetch_employees
+GET {{baseUrl}}/employees?page=1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name delete_employees
+DELETE {{baseUrl}}/employees/233a6d22-0452-4de9-bf01-f16a0526558e
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name edit_employees
+PUT {{baseUrl}}/employees/2472f50e-3413-4a84-85a5-981c3d782b89
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "department": "medico", 
+  "email": "teste@test.com", 
+  "name": "testei", 
+  "password": "123456", 
+  "role": "gerente"
+}

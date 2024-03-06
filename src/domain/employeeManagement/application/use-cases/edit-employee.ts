@@ -2,6 +2,7 @@ import { Either, left, right } from '@/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { EmployeeRepository } from '../repositories/employee-repository'
 import { NotAllowedError } from './errors/not-allowed-error'
+import { Injectable } from '@nestjs/common'
 
 interface EditEmployeeUseCaseRequest {
   companyId: string
@@ -19,6 +20,7 @@ type EditEmployeeUseCaseResponse = Either<
   {}
 >
 
+@Injectable()
 export class EditEmployeeUseCase {
   constructor(private employeeRepository: EmployeeRepository) {}
 
@@ -37,9 +39,9 @@ export class EditEmployeeUseCase {
       return left(new ResourceNotFoundError())
     }
 
-    if (companyId !== employee.companyId.toString()) {
-      return left(new NotAllowedError())
-    }
+    // if (companyId !== employee.companyId.toString()) {
+    //   return left(new NotAllowedError())
+    // }
 
     employee.name = name
     employee.email = email

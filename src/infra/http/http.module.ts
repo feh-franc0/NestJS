@@ -50,6 +50,14 @@ import { EditPatientController } from './controllers/edit-patient.controller'
 import { EditPatientUseCase } from '@/domain/patientManagement/application/use-cases/edit-patient'
 import { DeletePatientController } from './controllers/delete-patient.controller'
 import { DeletePatientUseCase } from '@/domain/patientManagement/application/use-cases/delete-patient'
+import { CreateEmployeeController } from './controllers/create-employee.controller'
+import { DeleteEmployeeController } from './controllers/delete-employee.controller'
+import { CreateEmployeeUseCase } from '@/domain/employeeManagement/application/use-cases/create-employee'
+import { DeleteEmployeeUseCase } from '@/domain/employeeManagement/application/use-cases/delete-employee'
+import { EditEmployeeController } from './controllers/edit-employee.controller'
+import { EditEmployeeUseCase } from '@/domain/employeeManagement/application/use-cases/edit-employee'
+import { FetchEmployeeUseCase } from '@/domain/employeeManagement/application/use-cases/fetch-employees'
+import { FetchEmployeeController } from './controllers/fetch-employees.controller'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, StorageModule],
@@ -78,6 +86,10 @@ import { DeletePatientUseCase } from '@/domain/patientManagement/application/use
     CreatePatientController,
     FetchPatientsController,
     EditPatientController,
+    CreateEmployeeController,
+    DeleteEmployeeController,
+    EditEmployeeController,
+    FetchEmployeeController,
   ],
   providers: [
     CreateQuestionUseCase,
@@ -104,6 +116,10 @@ import { DeletePatientUseCase } from '@/domain/patientManagement/application/use
     CreatePatientUseCase,
     FetchPatientsUseCase,
     EditPatientUseCase,
+    CreateEmployeeUseCase,
+    DeleteEmployeeUseCase,
+    EditEmployeeUseCase,
+    FetchEmployeeUseCase,
   ],
 })
 export class HttpModule {}
