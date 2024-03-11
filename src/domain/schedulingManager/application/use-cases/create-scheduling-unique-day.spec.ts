@@ -16,9 +16,9 @@ describe('Create Employee', () => {
 
   it('should be able to create a employee', async () => {
     const result = await sut.execute({
-      companyId: new UniqueEntityID('1'),
-      patientId: new UniqueEntityID('1'),
-      employeeId: new UniqueEntityID('1'),
+      companyId: '1',
+      patientId: '1',
+      employeeId: '1',
       address: 'rua 2',
       startScheduleTimestamp: new Date(2024, 1, 10, 13, 30).getTime(), // 2024/fev/10 - 13:30
       closingScheduleTimestamp: new Date(2024, 1, 10, 14, 30).getTime(), // 2024/fev/10 - 14:30

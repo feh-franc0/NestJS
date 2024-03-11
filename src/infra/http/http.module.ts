@@ -58,6 +58,10 @@ import { EditEmployeeController } from './controllers/edit-employee.controller'
 import { EditEmployeeUseCase } from '@/domain/employeeManagement/application/use-cases/edit-employee'
 import { FetchEmployeeUseCase } from '@/domain/employeeManagement/application/use-cases/fetch-employees'
 import { FetchEmployeeController } from './controllers/fetch-employees.controller'
+import { CreateDaysOfWeekSchedulingController } from './controllers/create-alternate-scheduling-days.controller'
+import { CreateAlternateDaysSchedulingRepositoryUseCase } from '@/domain/schedulingManager/application/use-cases/create-scheduling-alternate-days-repository'
+import { CreateDaysOfWeekSchedulingUseCase } from '@/domain/schedulingManager/application/use-cases/create-scheduling-days-of-week'
+import { CreateUniqueDaySchedulingUseCase } from '@/domain/schedulingManager/application/use-cases/create-scheduling-unique-day'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, StorageModule],
@@ -90,6 +94,9 @@ import { FetchEmployeeController } from './controllers/fetch-employees.controlle
     DeleteEmployeeController,
     EditEmployeeController,
     FetchEmployeeController,
+    CreateDaysOfWeekSchedulingController,
+    CreateDaysOfWeekSchedulingController,
+    CreateDaysOfWeekSchedulingController,
   ],
   providers: [
     CreateQuestionUseCase,
@@ -120,6 +127,9 @@ import { FetchEmployeeController } from './controllers/fetch-employees.controlle
     DeleteEmployeeUseCase,
     EditEmployeeUseCase,
     FetchEmployeeUseCase,
+    CreateAlternateDaysSchedulingRepositoryUseCase,
+    CreateDaysOfWeekSchedulingUseCase,
+    CreateUniqueDaySchedulingUseCase,
   ],
 })
 export class HttpModule {}

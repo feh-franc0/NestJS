@@ -11,7 +11,6 @@ export class PrismaEmployeeRepository implements EmployeeRepository {
 
   async findById(id: string): Promise<Employee | null> {
     // ter a mesma entidade representada de formas diferentes dependendo da camada
-    console.log(id)
     const employee = await this.prisma.employee.findUnique({
       where: {
         id,

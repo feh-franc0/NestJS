@@ -1,15 +1,17 @@
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { DaysOfWeekScheduling } from '../../enterprise/entities/scheduling-days-of-week'
 
-export interface DaysOfWeekSchedulingRepository {
-  findCheckDaysOfWeekSchedulingConflict(
+export abstract class DaysOfWeekSchedulingRepository {
+  abstract findCheckDaysOfWeekSchedulingConflict(
     startDaysOfWeekScheduling: number,
     closingDaysOfWeekScheduling: number,
   ): Promise<DaysOfWeekScheduling | null>
-  fetchDaysOfWeekSchedulings(
+
+  abstract fetchDaysOfWeekSchedulings(
     params: PaginationParams,
   ): Promise<DaysOfWeekScheduling[]>
-  create(daysofweekscheduling: DaysOfWeekScheduling[]): Promise<void>
-  edit(daysofweekscheduling: DaysOfWeekScheduling): Promise<void>
-  delete(daysofweekscheduling: DaysOfWeekScheduling): Promise<void>
+
+  abstract create(daysofweekscheduling: DaysOfWeekScheduling[]): Promise<void>
+  abstract edit(daysofweekscheduling: DaysOfWeekScheduling): Promise<void>
+  abstract delete(daysofweekscheduling: DaysOfWeekScheduling): Promise<void>
 }

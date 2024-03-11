@@ -11,7 +11,6 @@ export class PrismaPatientRepository implements PatientRepository {
 
   async findById(id: string): Promise<Patient | null> {
     // ter a mesma entidade representada de formas diferentes dependendo da camada
-    console.log(id)
     const patient = await this.prisma.patient.findUnique({
       where: {
         id,

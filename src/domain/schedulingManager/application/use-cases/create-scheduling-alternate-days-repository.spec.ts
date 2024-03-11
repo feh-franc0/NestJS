@@ -1,24 +1,24 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { CreateAlternateSchedulingRepository } from './create-scheduling-alternate-days-repository'
+import { CreateAlternateDaysSchedulingRepositoryUseCase } from './create-scheduling-alternate-days-repository'
 import { InMemoryAlternateSchedulingRepository } from 'test/repositories/in-memory-alternate-days-scheduling-repository'
 
 let inMemoryAlternateSchedulingRepository: InMemoryAlternateSchedulingRepository
-let sut: CreateAlternateSchedulingRepository
+let sut: CreateAlternateDaysSchedulingRepositoryUseCase
 
 describe('Create Alternate Scheduling', () => {
   beforeEach(() => {
     inMemoryAlternateSchedulingRepository =
       new InMemoryAlternateSchedulingRepository()
-    sut = new CreateAlternateSchedulingRepository(
+    sut = new CreateAlternateDaysSchedulingRepositoryUseCase(
       inMemoryAlternateSchedulingRepository,
     ) // system under test
   })
 
   it('should be able to create alternate scheduling', async () => {
     const result = await sut.execute({
-      companyId: new UniqueEntityID('1'),
-      patientId: new UniqueEntityID('1'),
-      employeeId: new UniqueEntityID('1'),
+      companyId: '1',
+      patientId: '1',
+      employeeId: '1',
       address: 'rua 2',
       hoursOfServicePerConsultation: 2,
       hoursOfSpacingPerConsultation: 3,
@@ -30,7 +30,6 @@ describe('Create Alternate Scheduling', () => {
 
     expect(result.isRight()).toBe(true)
     if (result.isRight()) {
-      // console.log(result.value.scheduledSchedulingAlternateDays)
       expect(inMemoryAlternateSchedulingRepository.items).toEqual(
         result.value.scheduledSchedulingAlternateDays,
       )

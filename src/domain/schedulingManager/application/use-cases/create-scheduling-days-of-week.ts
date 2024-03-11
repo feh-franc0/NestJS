@@ -15,9 +15,9 @@ type WeekDay =
   | 'Saturday'
 
 interface CreateDaysOfWeekSchedulingUseCaseRequest {
-  companyId: UniqueEntityID
-  patientId: UniqueEntityID
-  employeeId: UniqueEntityID
+  companyId: string
+  patientId: string
+  employeeId: string
   address: string
   startHours: string
   closingHours: string
@@ -79,9 +79,9 @@ export class CreateDaysOfWeekSchedulingUseCase {
           const scheduledEnd = scheduledStart + dayInMillis
 
           const scheduling = DaysOfWeekScheduling.create({
-            companyId,
-            patientId,
-            employeeId,
+            companyId: new UniqueEntityID(companyId),
+            patientId: new UniqueEntityID(patientId),
+            employeeId: new UniqueEntityID(employeeId),
             address,
             startHours,
             closingHours,

@@ -38,7 +38,6 @@ export class EditPatientUseCase {
     password,
     attachmentsIds,
   }: EditPatientUseCaseRequest): Promise<EditPatientUseCaseResponse> {
-    console.log(patientId)
     const patient = await this.patientRepository.findById(patientId)
 
     if (!patient) {

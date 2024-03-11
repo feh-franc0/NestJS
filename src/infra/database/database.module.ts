@@ -28,14 +28,26 @@ import { PrismaUniqueDaySchedulingRepository } from './prisma/repositories/prism
 import { PatientRepository } from '@/domain/patientManagement/application/repositories/patient-repository'
 import { PatientAttachmentsRepository } from '@/domain/patientManagement/application/repositories/patient-attachments-repository'
 import { EmployeeRepository } from '@/domain/employeeManagement/application/repositories/employee-repository'
+import { AlternateSchedulingRepository } from '@/domain/schedulingManager/application/repositories/scheduling-alternate-days-repository'
+import { DaysOfWeekSchedulingRepository } from '@/domain/schedulingManager/application/repositories/scheduling-days-of-week-repository'
+import { UniqueDaySchedulingRepository } from '@/domain/schedulingManager/application/repositories/scheduling-unique-day-repository'
 
 @Module({
   imports: [CacheModule],
   providers: [
     PrismaService,
-    PrismaAlternateSchedulingRepository,
-    PrismaDaysOfWeekSchedulingRepository,
-    PrismaUniqueDaySchedulingRepository,
+    {
+      provide: AlternateSchedulingRepository,
+      useClass: PrismaAlternateSchedulingRepository,
+    },
+    {
+      provide: DaysOfWeekSchedulingRepository,
+      useClass: PrismaDaysOfWeekSchedulingRepository,
+    },
+    {
+      provide: UniqueDaySchedulingRepository,
+      useClass: PrismaUniqueDaySchedulingRepository,
+    },
     {
       provide: EmployeeRepository,
       useClass: PrismaEmployeeRepository,
@@ -99,9 +111,9 @@ import { EmployeeRepository } from '@/domain/employeeManagement/application/repo
     EmployeeRepository,
     PatientAttachmentsRepository,
     PatientRepository,
-    PrismaAlternateSchedulingRepository,
-    PrismaDaysOfWeekSchedulingRepository,
-    PrismaUniqueDaySchedulingRepository,
+    AlternateSchedulingRepository,
+    DaysOfWeekSchedulingRepository,
+    UniqueDaySchedulingRepository,
   ],
 })
 export class DatabaseModule {}

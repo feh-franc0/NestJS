@@ -1,11 +1,11 @@
-import { CreatePatientUseCase } from './fetch-patients'
 import { InMemoryPatientRepository } from '../../../../../test/repositories/in-memory-patient-repository'
 import { makePatient } from '../../../../../test/factories/make-patient'
 import { InMemoryPatientAttachmentsRepository } from 'test/repositories/in-memory-patient-attachments-repository'
+import { FetchPatientsUseCase } from './fetch-patients'
 
 let inMemoryPatientAttachmentsRepository: InMemoryPatientAttachmentsRepository
 let inMemoryPatientRepository: InMemoryPatientRepository
-let sut: CreatePatientUseCase
+let sut: FetchPatientsUseCase
 
 describe('Fetch Patients', () => {
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('Fetch Patients', () => {
     inMemoryPatientRepository = new InMemoryPatientRepository(
       inMemoryPatientAttachmentsRepository,
     )
-    sut = new CreatePatientUseCase(inMemoryPatientRepository) // system under test
+    sut = new FetchPatientsUseCase(inMemoryPatientRepository) // system under test
   })
 
   it('should be able to fetch patients', async () => {
@@ -23,7 +23,6 @@ describe('Fetch Patients', () => {
 
     const result = await sut.execute({ page: 1 })
 
-    // console.log(result.value?.patients)
     if (result.isRight()) {
       expect(result.value?.patients).toEqual([
         {

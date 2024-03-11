@@ -6,9 +6,9 @@ import { UniqueDaySchedulingRepository } from '../repositories/scheduling-unique
 import { UniqueDayScheduling } from '../../enterprise/entities/scheduling-unique-day'
 
 interface CreateUniqueDaySchedulingUseCaseRequest {
-  companyId: UniqueEntityID
-  patientId: UniqueEntityID
-  employeeId: UniqueEntityID
+  companyId: string
+  patientId: string
+  employeeId: string
   address: string
   startScheduleTimestamp: number
   closingScheduleTimestamp: number
@@ -49,9 +49,9 @@ export class CreateUniqueDaySchedulingUseCase {
     }
 
     const scheduling = UniqueDayScheduling.create({
-      companyId,
-      patientId,
-      employeeId,
+      companyId: new UniqueEntityID(companyId),
+      patientId: new UniqueEntityID(patientId),
+      employeeId: new UniqueEntityID(employeeId),
       address,
       startScheduleTimestamp,
       closingScheduleTimestamp,

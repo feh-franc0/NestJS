@@ -1,15 +1,17 @@
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { UniqueDayScheduling } from '../../enterprise/entities/scheduling-unique-day'
 
-export interface UniqueDaySchedulingRepository {
-  findCheckUniqueDaySchedulingConflict(
+export abstract class UniqueDaySchedulingRepository {
+  abstract findCheckUniqueDaySchedulingConflict(
     startUniqueDayScheduling: number,
     closingUniqueDayScheduling: number,
   ): Promise<UniqueDayScheduling | null>
-  fetchUniqueDaySchedulings(
+
+  abstract fetchUniqueDaySchedulings(
     params: PaginationParams,
   ): Promise<UniqueDayScheduling[]>
-  create(uniquedayscheduling: UniqueDayScheduling): Promise<void>
-  edit(uniquedayscheduling: UniqueDayScheduling): Promise<void>
-  delete(uniquedayscheduling: UniqueDayScheduling): Promise<void>
+
+  abstract create(uniquedayscheduling: UniqueDayScheduling): Promise<void>
+  abstract edit(uniquedayscheduling: UniqueDayScheduling): Promise<void>
+  abstract delete(uniquedayscheduling: UniqueDayScheduling): Promise<void>
 }

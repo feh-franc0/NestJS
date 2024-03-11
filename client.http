@@ -129,3 +129,25 @@ Authorization: Bearer {{authToken}}
   "password": "123456", 
   "role": "gerente"
 }
+
+###
+
+# @name create_employees
+POST {{baseUrl}}/alternate-days-scheduling
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "address": "rua z",
+  "closingContractTimeStamp": 1704213000000,
+  "startContractTimeStamp": 1704126600000,
+  "startHours": "15:00",
+  "closingHours": "16:00",
+  "employeeId": "1",
+  "patientId": "2",
+  "hoursOfServicePerConsultation": 24,
+  "hoursOfSpacingPerConsultation": 12 ,
+  "scheduledDaysWeek": [
+    "Monday"
+  ]
+}

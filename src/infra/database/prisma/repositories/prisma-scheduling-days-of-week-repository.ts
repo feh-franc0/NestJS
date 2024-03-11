@@ -10,28 +10,49 @@ export class PrismaDaysOfWeekSchedulingRepository
 {
   constructor(private prisma: PrismaService) {}
 
-  findCheckDaysOfWeekSchedulingConflict(
+  async findCheckDaysOfWeekSchedulingConflict(
     startDaysOfWeekScheduling: number,
     closingDaysOfWeekScheduling: number,
   ): Promise<DaysOfWeekScheduling | null> {
+    // const scheduling = await this.prisma.appointment.findFirst({
+    //   where: {
+    //     start: startDaysOfWeekScheduling,
+    //     closing: closingDaysOfWeekScheduling,
+    //   },
+    // })
+
+    // return scheduling || null
     throw new Error('Method not implemented.')
   }
 
-  fetchDaysOfWeekSchedulings(
+  async fetchDaysOfWeekSchedulings(
     params: PaginationParams,
   ): Promise<DaysOfWeekScheduling[]> {
+    // const { page } = params
+    // const skip = (page - 1) * 20
+    // const schedulings = await this.prisma.appointment.findMany({
+    //   skip,
+    //   take: 20,
+    // })
+    // return schedulings
     throw new Error('Method not implemented.')
   }
 
-  create(daysofweekscheduling: DaysOfWeekScheduling[]): Promise<void> {
-    throw new Error('Method not implemented.')
+  async create(daysofweekscheduling: DaysOfWeekScheduling[]): Promise<void> {
+    // await this.prisma.appointment.createMany({
+    // data: daysofweekscheduling.map((scheduling) => ({
+    // Map your DaysOfWeekScheduling properties to Prisma model properties
+    // Example: start: scheduling.start,
+    //          closing: scheduling.closing,
+    // })),
+    // })
   }
 
-  edit(daysofweekscheduling: DaysOfWeekScheduling): Promise<void> {
-    throw new Error('Method not implemented.')
+  async edit(daysofweekscheduling: DaysOfWeekScheduling): Promise<void> {
+    // Implement edit logic using Prisma update function
   }
 
-  delete(daysofweekscheduling: DaysOfWeekScheduling): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(daysofweekscheduling: DaysOfWeekScheduling): Promise<void> {
+    // Implement delete logic using Prisma delete function
   }
 }

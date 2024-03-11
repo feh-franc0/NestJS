@@ -8,10 +8,10 @@ import {
   AlternateSchedulingProps,
 } from '../../enterprise/entities/scheduling-alternate-days'
 
-interface CreateAlternateSchedulingRepositoryRequest {
-  companyId: UniqueEntityID
-  patientId: UniqueEntityID
-  employeeId: UniqueEntityID
+interface CreateAlternateDaysSchedulingRepositoryUseCaseRequest {
+  companyId: string
+  patientId: string
+  employeeId: string
   address: string
   startHours: string
   closingHours: string
@@ -21,14 +21,14 @@ interface CreateAlternateSchedulingRepositoryRequest {
   closingContractTimeStamp: number
 }
 
-type CreateAlternateSchedulingRepositoryResponse = Either<
+type CreateAlternateDaysSchedulingRepositoryUseCaseResponse = Either<
   AlreadyExistsError | InvalidTimestampOrderError,
   {
     scheduledSchedulingAlternateDays: AlternateScheduling[]
   }
 >
 
-export class CreateAlternateSchedulingRepository {
+export class CreateAlternateDaysSchedulingRepositoryUseCase {
   constructor(
     private alternateSchedulingRepository: AlternateSchedulingRepository,
   ) {}
@@ -44,7 +44,7 @@ export class CreateAlternateSchedulingRepository {
     hoursOfSpacingPerConsultation,
     startContractTimeStamp,
     closingContractTimeStamp,
-  }: CreateAlternateSchedulingRepositoryRequest): Promise<CreateAlternateSchedulingRepositoryResponse> {
+  }: CreateAlternateDaysSchedulingRepositoryUseCaseRequest): Promise<CreateAlternateDaysSchedulingRepositoryUseCaseResponse> {
     if (closingContractTimeStamp < startContractTimeStamp) {
       return left(new InvalidTimestampOrderError())
     }
@@ -63,9 +63,9 @@ export class CreateAlternateSchedulingRepository {
       const scheduledEnd = scheduledStart + hoursToMilliseconds(closingHours)
 
       const schedulingProps: AlternateSchedulingProps = {
-        companyId,
-        patientId,
-        employeeId,
+        companyId: new UniqueEntityID(companyId),
+        patientId: new UniqueEntityID(patientId),
+        employeeId: new UniqueEntityID(employeeId),
         address,
         hoursOfServicePerConsultation,
         hoursOfSpacingPerConsultation,
@@ -86,7 +86,6 @@ export class CreateAlternateSchedulingRepository {
     }
 
     await this.alternateSchedulingRepository.create(generatedSchedules)
-
     return right({
       scheduledSchedulingAlternateDays: generatedSchedules,
     })
