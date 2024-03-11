@@ -1,4 +1,4 @@
-const qaPairs = [
+export const qaPairs = [
   { message_person: 'oi', message_bot: 'Oi, tudo bem?' },
   { message_person: 'como você está?', message_bot: 'Estou bem, obrigado!' },
   { message_person: 'Qual é o seu nome?', message_bot: 'Meu nome é Bot.' },
@@ -4391,5 +4391,3 @@ const qaPairs = [
     message_bot: "1-...."
   },
 ];
-
-module.exports = qaPairs;
