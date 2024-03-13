@@ -2,7 +2,6 @@ import { DisconnectReason } from '@whiskeysockets/baileys';
 import { useMultiFileAuthState } from '@whiskeysockets/baileys';
 import makeWASocket from '@whiskeysockets/baileys';
 
-import getAutoShopAIResponse from './api';
 import { qaPairs } from './baseDados';
 import { findBestResponse } from './learnAnswer';
 

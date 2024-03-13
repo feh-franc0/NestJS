@@ -58,10 +58,13 @@ import { EditEmployeeController } from './controllers/edit-employee.controller'
 import { EditEmployeeUseCase } from '@/domain/employeeManagement/application/use-cases/edit-employee'
 import { FetchEmployeeUseCase } from '@/domain/employeeManagement/application/use-cases/fetch-employees'
 import { FetchEmployeeController } from './controllers/fetch-employees.controller'
-import { CreateDaysOfWeekSchedulingController } from './controllers/create-alternate-scheduling-days.controller'
 import { CreateAlternateDaysSchedulingRepositoryUseCase } from '@/domain/schedulingManager/application/use-cases/create-scheduling-alternate-days-repository'
 import { CreateDaysOfWeekSchedulingUseCase } from '@/domain/schedulingManager/application/use-cases/create-scheduling-days-of-week'
 import { CreateUniqueDaySchedulingUseCase } from '@/domain/schedulingManager/application/use-cases/create-scheduling-unique-day'
+import { CreateAlternateSchedulingDaysController } from './controllers/create-alternate-scheduling-days.controller'
+import { CreateSchedulingDaysOfWeekController } from './controllers/create-scheduling-days-of-week.controller'
+import { CreateSchedulingUniqueDayController } from './controllers/create-scheduling-unique-day.controller'
+import { GetQrCodeWhatsappController } from './controllers/get-qr-code-whatsapp.controller'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, StorageModule],
@@ -94,9 +97,10 @@ import { CreateUniqueDaySchedulingUseCase } from '@/domain/schedulingManager/app
     DeleteEmployeeController,
     EditEmployeeController,
     FetchEmployeeController,
-    CreateDaysOfWeekSchedulingController,
-    CreateDaysOfWeekSchedulingController,
-    CreateDaysOfWeekSchedulingController,
+    CreateAlternateSchedulingDaysController,
+    CreateSchedulingDaysOfWeekController,
+    CreateSchedulingUniqueDayController,
+    GetQrCodeWhatsappController,
   ],
   providers: [
     CreateQuestionUseCase,

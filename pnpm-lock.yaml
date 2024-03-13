@@ -34,7 +34,10 @@ dependencies:
     version: 2.4.4
   '@whiskeysockets/baileys':
     specifier: ^6.6.0
-    version: 6.6.0
+    version: 6.6.0(qrcode-terminal@0.12.0)
+  axios:
+    specifier: ^1.6.7
+    version: 1.6.7
   bcryptjs:
     specifier: ^2.4.3
     version: 2.4.3
@@ -50,6 +53,9 @@ dependencies:
   passport-jwt:
     specifier: ^4.0.1
     version: 4.0.1
+  qrcode-terminal:
+    specifier: ^0.12.0
+    version: 0.12.0
   reflect-metadata:
     specifier: ^0.1.13
     version: 0.1.13
@@ -2616,7 +2622,7 @@ packages:
       '@xtuc/long': 4.2.2
     dev: true
 
-  /@whiskeysockets/baileys@6.6.0:
+  /@whiskeysockets/baileys@6.6.0(qrcode-terminal@0.12.0):
     resolution: {integrity: sha512-4aIPHztdLZP24Qac7mudZTMR7qIsEDQxlpCBJE4atYHFAa5tlwCGPcUy249q3aaayxYtQAwheVG42L6AkRxAwg==}
     peerDependencies:
       jimp: ^0.16.1
@@ -2645,6 +2651,7 @@ packages:
       node-cache: 5.1.2
       pino: 7.11.0
       protobufjs: 7.2.6
+      qrcode-terminal: 0.12.0
       uuid: 9.0.0
       ws: 8.16.0
     transitivePeerDependencies:
@@ -5950,6 +5957,11 @@ packages:
     resolution: {integrity: sha512-dMB0Z6XQjdpz/Cw4Rf6RiBpQvUSPCfYlQMWvmuWlWkAT7nDQD29cVZ1SwDUB6DYJSitHENwbt90lqfI+7bvMcw==}
     dependencies:
       '@thi.ng/bitstream': 2.2.51
+    dev: false
+
+  /qrcode-terminal@0.12.0:
+    resolution: {integrity: sha512-EXtzRZmC+YGmGlDFbXKxQiMZNwCLEO6BANKXG4iCtSIM0yqc/pappSx3RIKr4r0uh5JsBckOXeKrB3Iz7mdQpQ==}
+    hasBin: true
     dev: false
 
   /qs@6.11.0:

@@ -5,15 +5,6 @@ import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 import { z } from 'zod'
 import { CreateDaysOfWeekSchedulingUseCase } from '@/domain/schedulingManager/application/use-cases/create-scheduling-days-of-week'
 
-type WeekDay =
-  | 'Monday'
-  | 'Tuesday'
-  | 'Wednesday'
-  | 'Thursday'
-  | 'Friday'
-  | 'Saturday'
-  | 'Sunday'
-
 const weekDaySchema = z.enum([
   'Monday',
   'Tuesday',
@@ -44,7 +35,7 @@ type CreateDaysOfWeekSchedulingBodySchema = z.infer<
 >
 
 @Controller('/days-of-week-scheduling')
-export class CreateDaysOfWeekSchedulingController {
+export class CreateSchedulingDaysOfWeekController {
   constructor(
     private createDaysOfWeekScheduling: CreateDaysOfWeekSchedulingUseCase,
   ) {}

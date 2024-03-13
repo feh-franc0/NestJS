@@ -151,3 +151,12 @@ Authorization: Bearer {{authToken}}
     "Monday"
   ]
 }
+
+###
+
+# @name fetch_employees
+POST {{baseUrl}}/whatsapp/connect
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###

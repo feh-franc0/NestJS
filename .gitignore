@@ -40,3 +40,6 @@ lerna-debug.log*
 
 # Docker
 /data
+
+# Whatsapp Connect
+/auth_info_baileys
