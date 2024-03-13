@@ -10,7 +10,8 @@ import { findBestResponse } from '@/codeBotzapBackup/learnAnswer'
 
 @Controller('whatsapp')
 export class GetQrCodeWhatsappController {
-  // constructor() {}
+  private qrCodeLink: string | null = null
+  private allowedNumbers: string[] = ['5521984254026', '120363147349570360'] // Lista de números permitidos
 
   @Post('connect')
   async connect(): Promise<any> {
@@ -21,31 +22,34 @@ export class GetQrCodeWhatsappController {
       printQRInTerminal: true,
     })
 
-    sock.ev.on('connection.update', (update: any) => {
-      const { connection, lastDisconnect, qr } = update || {}
+    const qrCodeLinkPromise = new Promise<string | null>((resolve) => {
+      sock.ev.on('connection.update', (update: any) => {
+        const { connection, lastDisconnect, qr } = update || {}
 
-      if (qr) {
-        console.log(qr) // Exibir QR code no terminal
-      }
-
-      if (connection === 'close') {
-        const shouldReconnect =
-          lastDisconnect?.error?.output?.statusCode !==
-          DisconnectReason.loggedOut
-
-        console.log(
-          'connection closed due to ',
-          lastDisconnect.error,
-          ', reconnecting ',
-          shouldReconnect,
-        )
-
-        if (shouldReconnect) {
-          this.connect() // Rechamar a função de conexão
+        if (qr) {
+          console.log('link_qr_code: ', qr) // Exibir QR code no terminal
+          resolve(qr)
         }
-      } else if (connection === 'open') {
-        console.log('opened connection')
-      }
+
+        if (connection === 'close') {
+          const shouldReconnect =
+            lastDisconnect?.error?.output?.statusCode !==
+            DisconnectReason.loggedOut
+
+          console.log(
+            'connection closed due to ',
+            lastDisconnect.error,
+            ', reconnecting ',
+            shouldReconnect,
+          )
+
+          if (shouldReconnect) {
+            this.connect() // Rechamar a função de conexão
+          }
+        } else if (connection === 'open') {
+          console.log('opened connection')
+        }
+      })
     })
 
     sock.ev.on('creds.update', saveCreds)
@@ -56,12 +60,14 @@ export class GetQrCodeWhatsappController {
         m.messages[0]?.message?.extendedTextMessage?.text ||
         m.messages[0]?.message?.conversation
 
+      console.log({ senderNumber, receivedMessage })
+
       if (receivedMessage) {
         let ultimaMensagemEnviada: string | null = null
 
         console.log('tem bot? ', receivedMessage.includes('*_[BOT]_*:'))
 
-        if (!receivedMessage.includes('*_[BOT]_*:')) {
+        if (!receivedMessage.includes('*_[ BOT ]_*:')) {
           if (receivedMessage === ultimaMensagemEnviada) {
             console.log('Mensagem repetida. Evitando spam.')
             return
@@ -81,13 +87,31 @@ export class GetQrCodeWhatsappController {
           const responseMessage = findBestResponse(receivedMessage, qaPairs)
 
           if (responseMessage) {
-            const formattedResponse = '*_[BOT]_*: ' + responseMessage
+            const formattedResponse = '*_[ BOT ]_*: \n' + responseMessage
             await sock.sendMessage(senderNumber, { text: formattedResponse })
           }
         }
       }
     })
 
-    return { message: 'Connected to WhatsApp' } // Retorno da requisição
+    this.qrCodeLink = await qrCodeLinkPromise
+
+    return {
+      link_qrcode: this.qrCodeLink,
+      message: 'Connected to WhatsApp',
+    } // Retorno da requisição
+  }
+
+  private isNumberAllowed(senderNumber: string): boolean {
+    // Extrair o número do remetente
+    const number = senderNumber.split('@')[0]
+
+    // Se a lista de números permitidos estiver vazia, todos os números são permitidos
+    if (this.allowedNumbers.length === 0) {
+      return true
+    }
+
+    // Verifique se o número está na lista de permitidos
+    return this.allowedNumbers.includes(number)
   }
 }
