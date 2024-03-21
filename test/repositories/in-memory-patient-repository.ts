@@ -1,9 +1,9 @@
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { PatientAttachmentsRepository } from '@/domain/patientManagement/application/repositories/patient-attachments-repository'
-import { PatientRepository } from '@/domain/patientManagement/application/repositories/patient-repository'
+import { PatientsRepository } from '@/domain/patientManagement/application/repositories/patient-repository'
 import { Patient } from '@/domain/patientManagement/enterprise/entities/patient'
 
-export class InMemoryPatientRepository implements PatientRepository {
+export class InMemoryPatientsRepository implements PatientsRepository {
   public items: Patient[] = []
 
   constructor(

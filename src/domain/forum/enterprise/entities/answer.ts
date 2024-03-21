@@ -78,3 +78,20 @@ export class Answer extends AggregateRoot<AnswerProps> {
     return answer
   }
 }
+
+// model Answer {
+//   id         String    @id @default(uuid())
+//   content    String
+//   createdAt  DateTime  @default(now()) @map("created_at")
+//   updatedAt  DateTime? @updatedAt @map("updated_at")
+//   authorId   String    @map("author_id")
+//   questionId String    @map("question_id")
+
+//   author       User         @relation(fields: [authorId], references: [id])
+//   bestAnswerOn Question?    @relation("bestAnswer")
+//   question     Question     @relation(fields: [questionId], references: [id])
+//   comments     Comment[]
+//   attachments  Attachment[]
+
+//   @@map("answers")
+// }

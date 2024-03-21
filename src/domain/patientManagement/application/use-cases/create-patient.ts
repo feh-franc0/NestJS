@@ -1,5 +1,5 @@
 import { Either, left, right } from '@/core/either'
-import { PatientRepository } from '../repositories/patient-repository'
+import { PatientsRepository } from '../repositories/patient-repository'
 import { AlreadyExistsError } from './errors/already-exists-error'
 import { Patient } from '../../enterprise/entities/patient'
 import { PasswordMismatchError } from './errors/password-mismatch-error'
@@ -27,7 +27,7 @@ type CreatePatientUseCaseResponse = Either<
 
 @Injectable()
 export class CreatePatientUseCase {
-  constructor(private patientRepository: PatientRepository) {}
+  constructor(private patientsRepository: PatientsRepository) {}
 
   async execute({
     companyId,
@@ -37,7 +37,8 @@ export class CreatePatientUseCase {
     confirmPassword,
     attachmentsIds,
   }: CreatePatientUseCaseRequest): Promise<CreatePatientUseCaseResponse> {
-    const patientAlreadyExists = await this.patientRepository.findByEmail(email)
+    const patientAlreadyExists =
+      await this.patientsRepository.findByEmail(email)
 
     if (patientAlreadyExists) {
       return left(new AlreadyExistsError())
@@ -63,7 +64,7 @@ export class CreatePatientUseCase {
 
     patient.attachments = new PatientAttachmentList(patientAttachments)
 
-    await this.patientRepository.create(patient)
+    await this.patientsRepository.create(patient)
 
     return right({
       patient,

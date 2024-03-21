@@ -17,7 +17,7 @@ export class InMemoryAppointmentRepository implements AppointmentRepository {
 
   async createMultipleAppointments(appointments: Appointment[]): Promise<void> {
     this.appointments.push(...appointments)
-    console.log(appointments, this.appointments)
+    // console.log(appointments, this.appointments)
   }
 
   async getAppointmentsByFilter(

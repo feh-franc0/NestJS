@@ -62,7 +62,7 @@ describe('Create Single Appointment Use Case', () => {
     // Act
     const result = await sut.execute(request)
 
-    console.log('DB: ', appointmentRepository.appointments)
+    // console.log('DB: ', appointmentRepository.appointments)
 
     // Assert
     expect(result.isLeft()).toBe(true)

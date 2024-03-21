@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { PatientRepository } from '../repositories/patient-repository'
+import { PatientsRepository } from '../repositories/patient-repository'
 import { NotAllowedError } from './errors/not-allowed-error'
 import { PatientAttachmentsRepository } from '../repositories/patient-attachments-repository'
 import { PatientAttachmentList } from '../../enterprise/entities/patient-attachment-list'
@@ -26,7 +26,7 @@ type EditPatientUseCaseResponse = Either<
 @Injectable()
 export class EditPatientUseCase {
   constructor(
-    private patientRepository: PatientRepository,
+    private patientsRepository: PatientsRepository,
     private patientAttachmentsRepository: PatientAttachmentsRepository,
   ) {}
 
@@ -38,15 +38,15 @@ export class EditPatientUseCase {
     password,
     attachmentsIds,
   }: EditPatientUseCaseRequest): Promise<EditPatientUseCaseResponse> {
-    const patient = await this.patientRepository.findById(patientId)
+    const patient = await this.patientsRepository.findById(patientId)
 
     if (!patient) {
       return left(new ResourceNotFoundError())
     }
 
-    // if (companyId !== patient.companyId.toString()) {
-    //   return left(new NotAllowedError())
-    // }
+    if (companyId !== patient.companyId.toString()) {
+      return left(new NotAllowedError())
+    }
 
     // const currentPatientAttachments =
     //   await this.patientAttachmentsRepository.findManyByPatientId(patientId)
@@ -69,7 +69,7 @@ export class EditPatientUseCase {
     patient.password = password
     // patient.attachments = patientAttachmentList
 
-    await this.patientRepository.edit(patient)
+    await this.patientsRepository.edit(patient)
 
     return right({})
   }

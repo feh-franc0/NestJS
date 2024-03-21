@@ -63,3 +63,27 @@ export class Patient extends Entity<PatientProps> {
     return patient
   }
 }
+
+// model Patient {
+//   id                    String                 @id @default(uuid())
+//   companyId             String
+//   // company               Company                @relation(fields: [companyId], references: [id])
+//   isActive              Boolean
+//   comorbidityTypes      String[]
+//   relativeName          String
+//   elderlyName           String
+//   address               String
+//   importantPhones       String[]
+//   email                 String                 @unique
+//   medicationDoseTiming  Medication[]
+//   allergiesRestrictions AlergiesRestrictions[]
+//   cpfDocuments          String
+//   pdfPhotoFiles         String[]
+//   patientCode           String
+//   gender                String
+//   lastAppointment       String
+//   insurance             String
+//   Appointments          Appointment[]
+
+//   @@map("Patients")
+// }

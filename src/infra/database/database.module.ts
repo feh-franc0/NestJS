@@ -21,11 +21,11 @@ import { PrismaNotificationsRepository } from './prisma/repositories/prisma-noti
 import { CacheModule } from '../cache/cache.module'
 import { PrismaEmployeeRepository } from './prisma/repositories/prisma-employee-repository'
 import { PrismaPatientAttachmentsRepository } from './prisma/repositories/prisma-patient-attachments-repository'
-import { PrismaPatientRepository } from './prisma/repositories/prisma-patient-repository'
+import { PrismaPatientsRepository } from './prisma/repositories/prisma-patient-repository'
 import { PrismaAlternateSchedulingRepository } from './prisma/repositories/prisma-scheduling-alternate-days-repository'
 import { PrismaDaysOfWeekSchedulingRepository } from './prisma/repositories/prisma-scheduling-days-of-week-repository'
 import { PrismaUniqueDaySchedulingRepository } from './prisma/repositories/prisma-scheduling-unique-day-repository'
-import { PatientRepository } from '@/domain/patientManagement/application/repositories/patient-repository'
+import { PatientsRepository } from '@/domain/patientManagement/application/repositories/patient-repository'
 import { PatientAttachmentsRepository } from '@/domain/patientManagement/application/repositories/patient-attachments-repository'
 import { EmployeeRepository } from '@/domain/employeeManagement/application/repositories/employee-repository'
 import { AlternateSchedulingRepository } from '@/domain/schedulingManager/application/repositories/scheduling-alternate-days-repository'
@@ -57,8 +57,8 @@ import { UniqueDaySchedulingRepository } from '@/domain/schedulingManager/applic
       useClass: PrismaPatientAttachmentsRepository,
     },
     {
-      provide: PatientRepository,
-      useClass: PrismaPatientRepository,
+      provide: PatientsRepository,
+      useClass: PrismaPatientsRepository,
     },
     {
       provide: QuestionsRepository,
@@ -110,7 +110,7 @@ import { UniqueDaySchedulingRepository } from '@/domain/schedulingManager/applic
     NotificationsRepository,
     EmployeeRepository,
     PatientAttachmentsRepository,
-    PatientRepository,
+    PatientsRepository,
     AlternateSchedulingRepository,
     DaysOfWeekSchedulingRepository,
     UniqueDaySchedulingRepository,

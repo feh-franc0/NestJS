@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { PatientRepository } from '../repositories/patient-repository'
+import { PatientsRepository } from '../repositories/patient-repository'
 import { NotAllowedError } from './errors/not-allowed-error'
 import { Injectable } from '@nestjs/common'
 
@@ -17,13 +17,13 @@ type DeletePatientUseCaseResponse = Either<
 
 @Injectable()
 export class DeletePatientUseCase {
-  constructor(private patientRepository: PatientRepository) {}
+  constructor(private patientsRepository: PatientsRepository) {}
 
   async execute({
     patientId,
     isCompany,
   }: DeletePatientUseCaseRequest): Promise<DeletePatientUseCaseResponse> {
-    const patient = await this.patientRepository.findById(patientId)
+    const patient = await this.patientsRepository.findById(patientId)
 
     if (!patient) {
       return left(new ResourceNotFoundError())
@@ -33,7 +33,7 @@ export class DeletePatientUseCase {
       return left(new NotAllowedError())
     }
 
-    await this.patientRepository.delete(patient)
+    await this.patientsRepository.delete(patient)
 
     return right({})
   }

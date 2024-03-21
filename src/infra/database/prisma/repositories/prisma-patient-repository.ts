@@ -1,12 +1,12 @@
 import { PaginationParams } from '@/core/repositories/pagination-params'
-import { PatientRepository } from '@/domain/patientManagement/application/repositories/patient-repository'
+import { PatientsRepository } from '@/domain/patientManagement/application/repositories/patient-repository'
 import { Patient } from '@/domain/patientManagement/enterprise/entities/patient'
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma.service'
 import { PrismaPatientMapper } from '../mappers/prisma-patient-mapper'
 
 @Injectable()
-export class PrismaPatientRepository implements PatientRepository {
+export class PrismaPatientsRepository implements PatientsRepository {
   constructor(private prisma: PrismaService) {}
 
   async findById(id: string): Promise<Patient | null> {

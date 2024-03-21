@@ -39,9 +39,9 @@ export class EditEmployeeUseCase {
       return left(new ResourceNotFoundError())
     }
 
-    // if (companyId !== employee.companyId.toString()) {
-    //   return left(new NotAllowedError())
-    // }
+    if (companyId !== employee.companyId.toString()) {
+      return left(new NotAllowedError())
+    }
 
     employee.name = name
     employee.email = email
