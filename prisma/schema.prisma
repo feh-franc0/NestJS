@@ -120,7 +120,7 @@ model Notification {
 // }
 
 model Patient {
-  id                    String                 @id @default(uuid())
+  id                    String                  @id @default(uuid())
   companyId             String
   // company               Company                @relation(fields: [companyId], references: [id])
   isActive              Boolean
@@ -129,7 +129,7 @@ model Patient {
   elderlyName           String
   address               String
   importantPhones       String[]
-  email                 String                 @unique
+  email                 String                  @unique
   medicationDoseTiming  Medication[]
   allergiesRestrictions AlergiesRestrictions[]
   cpfDocuments          String
@@ -139,6 +139,7 @@ model Patient {
   lastAppointment       String
   insurance             String
   Appointments          Appointment[]
+  FinishAppointmentForm FinishAppointmentForm[]
 
   @@map("Patients")
 }
@@ -201,27 +202,34 @@ enum MedicationType {
 }
 
 model Employee {
-  id           String        @id @default(uuid())
+  id           String  @id @default(uuid())
   isActive     Boolean
   name         String
   address      String
   phoneNumber  String
-  email        String        @unique
+  email        String  @unique
   cpfDocuments String
   employeeCode String
   position     String
   birthDate    String
   gender       String
-  Appointments Appointment[]
+
+  currentServiceId String?
+
+  Appointments          Appointment[]
+  FinishAppointmentForm FinishAppointmentForm[]
 
   @@map("Employees")
 }
 
 model Appointment {
-  id                 String   @id @default(uuid())
-  companyId          String
-  patient            Patient  @relation(fields: [patientId], references: [id])
-  employee           Employee @relation(fields: [employeeId], references: [id])
+  id                      String                @id @default(uuid())
+  companyId               String
+  patient                 Patient               @relation(fields: [patientId], references: [id])
+  employee                Employee              @relation(fields: [employeeId], references: [id])
+  finishAppointmentForm   FinishAppointmentForm @relation(fields: [finishAppointmentFormId], references: [id])
+  finishAppointmentFormId String
+
   residenceAddress   String
   initialConsultDate String
   finalConsultDate   String
@@ -230,6 +238,20 @@ model Appointment {
   employeeId         String
 
   @@map("Appointments")
+}
+
+model FinishAppointmentForm {
+  id               String        @id @default(uuid())
+  companyId        String
+  patient          Patient       @relation(fields: [patientId], references: [id])
+  employee         Employee      @relation(fields: [employeeId], references: [id])
+  patientId        String
+  employeeId       String
+  residenceAddress String
+  consultationFee  String
+  Appointment      Appointment[]
+
+  @@map("finish_appointment_form")
 }
 
 model Report {

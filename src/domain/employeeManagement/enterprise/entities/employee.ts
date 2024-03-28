@@ -4,6 +4,7 @@ import { Optional } from '@/core/types/optional'
 
 export interface EmployeeProps {
   companyId: UniqueEntityID
+  currentServiceId?: UniqueEntityID | null
   name: string
   email: string
   password: string
@@ -16,6 +17,14 @@ export interface EmployeeProps {
 export class Employee extends Entity<EmployeeProps> {
   get companyId() {
     return this.props.companyId
+  }
+
+  get currentServiceId() {
+    return this.props.currentServiceId
+  }
+
+  set currentServiceId(currentServiceId: UniqueEntityID | undefined | null) {
+    this.props.currentServiceId = currentServiceId
   }
 
   get name() {

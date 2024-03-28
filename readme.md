@@ -92,3 +92,30 @@ Para implementar o sistema de agendamento e retornar um único array de agendame
 2. Crie os endpoints da API para lidar com as solicitações de agendamento.
 3. Implemente a lógica de criação de registros na tabela `Appointment`.
 4. Adicione validações e tratamento de erros conforme necessário.
+
+---
+
+
+# Sistema de consulta e finalizacao de formulário da consulta
+
+Este sistema de permite você iniciar uma consulta, antes de finalizar a consulta você preenche um formulário de finalização e finaliza a consulta
+
+1. **Iniciar Atendimento:** Ao iniciar o atendimento o paciente se torna o paciente atual do funcionario.
+2. **Paciente atual:** Sempre iremos ter como base as ações sob o paciente atual, ou seja, o paciente atual estara vinculado ao usuario momentaneamente.
+3. **Finalização de atendimento:** Ao finalizar atendimento será preciso o preenchimento de um formulário de finalização de consulta. (servindo como formulários de consulta)
+
+## Implementação
+
+Para implementar o sistema de inicialização e finalização de consulta e linkar a consulta a uma finalização, siga estes passos:
+
+### Inicialização
+
+1. Ao iniciar seu atendimento você ira vincular o id do antendimento ao funcionario, assim o id do atendimento sera momentaneo.
+
+2. Todas as funções de paciente serão referentes ao seu paciente que esta referenciado na consulta atual
+
+### Finalização
+
+1. Ao clicar em finalizar, será nescessário preencher um formulário de finalizacao de consulta. Esse formulário irá conter todas as informações nescessárias para não ser preciso mais preenchimento manuel de finalizações de consultas
+
+2. Após o preenchimento e envio do formulário o id de atendimento será removido e será preciso atender outra consulta para voltar seu trabalho e próximo antedimento

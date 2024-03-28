@@ -5,7 +5,6 @@ import { NotAllowedError } from './errors/not-allowed-error'
 import { EditPatientUseCase } from './edit-patient'
 import { InMemoryPatientAttachmentsRepository } from 'test/repositories/in-memory-patient-attachments-repository'
 import { makePatientAttachment } from 'test/factories/make-patient-attachment'
-import { Console } from 'console'
 
 let inMemoryPatientsRepository: InMemoryPatientsRepository
 let inMemoryPatientAttachmentsRepository: InMemoryPatientAttachmentsRepository
